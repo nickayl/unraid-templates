@@ -35,3 +35,9 @@ profiles live on the Compose bundle instead: <https://quven.tv/docker>.
 ## Issues
 
 Template problems belong here. Anything about the server itself belongs at <https://quven.tv>.
+
+## Licence
+
+The MIT licence above covers this repository's contents: the template, its
+metadata and this README. It does not cover Quven itself, which is closed-source
+freeware distributed under its own terms at <https://quven.tv>.

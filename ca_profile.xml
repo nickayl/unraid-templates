@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<CommunityApplications>
+  <Profile>Quven is a self-hosted media server for films, TV shows and documentaries, with native desktop, Android, Apple and television clients rather than a browser-only interface. This repository holds its Community Applications template and nothing else.</Profile>
+  <Icon>https://quven.tv/logo.png</Icon>
+  <WebPage>https://quven.tv</WebPage>
+</CommunityApplications>
