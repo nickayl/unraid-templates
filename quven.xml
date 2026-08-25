@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Quven</Name>
+  <Repository>ghcr.io/nickayl/quven:v1.1.9</Repository>
+  <Registry>https://github.com/nickayl/Quven/pkgs/container/quven</Registry>
+  <Network>host</Network>
+  <MyIP/>
+  <Shell>sh</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://quven.tv/docs</Support>
+  <Project>https://quven.tv</Project>
+  <Overview>
+    Quven is a self-hosted media server for films, TV shows and documentaries, with native desktop,
+    Android, Apple and television clients rather than a browser-only interface.
+
+    The container is the Server-only lane: it scans the media you mount, matches it against the
+    metadata providers and streams it, either direct or through HLS when the client needs it.
+
+    Two things differ from most containers in Community Applications, both on purpose.
+
+    The server runs as UID/GID 10001 on a read-only root filesystem with every capability dropped, so
+    the appdata directory has to belong to that user before the first start. From a terminal:
+
+    mkdir -p /mnt/user/appdata/quven &amp;&amp; chown -R 10001:10001 /mnt/user/appdata/quven
+
+    The media share is mounted read-only. Quven never writes to it during a scan, and an ordinary
+    scan is not a disk-cleaning operation.
+
+    Host networking is used because the server answers LAN discovery from the native clients. The web
+    interface is on port 5181.
+
+    Hardware transcoding is not offered here. The server runs unprivileged, so a render node alone is
+    not enough: it also needs the host's render and video group IDs, which are specific to your
+    machine and which this template cannot guess. Use the Docker Compose bundle on quven.tv for a
+    VA-API, NVIDIA or Raspberry Pi setup.
+  </Overview>
+  <Category>MediaApp:Video MediaServer:Video</Category>
+  <WebUI>http://[IP]:5181/</WebUI>
+  <TemplateURL>https://raw.githubusercontent.com/nickayl/unraid-templates/main/quven.xml</TemplateURL>
+  <Icon>https://quven.tv/logo.png</Icon>
+  <ExtraParams>--init --read-only --cap-drop=ALL --security-opt=no-new-privileges:true --user=10001:10001 --tmpfs=/tmp:mode=1777,size=4g --stop-timeout=45</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires/>
+  <Config
+    Name="Appdata"
+    Target="/data"
+    Default="/mnt/user/appdata/quven"
+    Mode="rw"
+    Description="Database, configuration, artwork cache and generated subtitle assets. Must be owned by 10001:10001 before the first start."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/mnt/user/appdata/quven</Config>
+  <Config
+    Name="Media"
+    Target="/media"
+    Default="/mnt/user/media"
+    Mode="ro"
+    Description="The media root Quven scans. Mounted read-only."
+    Type="Path"
+    Display="always"
+    Required="true"
+    Mask="false">/mnt/user/media</Config>
+  <Config
+    Name="ASPNETCORE_URLS"
+    Target="ASPNETCORE_URLS"
+    Default="http://0.0.0.0:5181"
+    Mode=""
+    Description="Bind address of the server. Host networking is in use, so this is the port it binds, not a mapping."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
+    Mask="false">http://0.0.0.0:5181</Config>
+</Container>
