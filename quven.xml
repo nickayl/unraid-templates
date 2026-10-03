@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>Quven</Name>
-  <Repository>ghcr.io/nickayl/quven:v1.4.1</Repository>
+  <Repository>ghcr.io/nickayl/quven:latest</Repository>
   <Registry>https://github.com/nickayl/Quven/pkgs/container/quven</Registry>
   <Network>host</Network>
   <MyIP/>
@@ -36,6 +36,10 @@
     docker exec -it Quven /app/Quven.Local.Server account link
 
     Open the URL it prints, approve the server, and the clients on your network will find it.
+
+    The Repository follows the latest tag, so each new Quven release reaches the server when you
+    update the container from the Docker tab. Keep it on latest, because a version number written
+    there holds the server on that release and no later correction reaches it.
 
     Hardware transcoding is not offered here. The server runs unprivileged, so a render node alone is
     not enough: it also needs the host's render and video group IDs, which are specific to your
